@@ -3,14 +3,18 @@ package com.todo.todo.entity;
 import com.todo.todo.dto.request.UserRequestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
 @Entity
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
 public class UserEntity {
 
@@ -27,8 +31,11 @@ public class UserEntity {
     @Column(nullable = false)
     private LocalDateTime updateDate;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TodoEntity> todos;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserTodoAssignment> assignments = new ArrayList<>();
 
     public UserEntity(UserRequestDto userRequestDto) {
         this.userName = userRequestDto.getUsername();

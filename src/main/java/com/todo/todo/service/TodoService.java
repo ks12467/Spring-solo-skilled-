@@ -3,7 +3,9 @@ package com.todo.todo.service;
 import com.todo.todo.dto.request.TodoRequestDto;
 import com.todo.todo.dto.response.TodoResponseDto;
 import com.todo.todo.entity.TodoEntity;
+import com.todo.todo.entity.UserEntity;
 import com.todo.todo.repository.TodoRepository;
+import com.todo.todo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,10 +23,13 @@ import java.util.Optional;
 public class TodoService {
 
     private final TodoRepository todoRepository;
+    private final UserRepository userRepository;
+
 
     @Autowired
-    public TodoService(TodoRepository todoRepository) {
+    public TodoService(TodoRepository todoRepository, UserRepository userRepository) {
         this.todoRepository = todoRepository;
+        this.userRepository = userRepository;
     }
 
     public Page<TodoResponseDto> getTodoPages(int page, int size){
@@ -35,6 +40,7 @@ public class TodoService {
 
 
     public TodoResponseDto createTodo(TodoRequestDto todoRequestDto){
+        UserEntity user = userRepository.findById(todoRequestDto.getUserId()).orElseThrow(() -> new NoSuchElementException("사용자를 찾을 수 없습니다."));
         TodoEntity todo = new TodoEntity(todoRequestDto);
         TodoEntity saved = todoRepository.save(todo);
         return new TodoResponseDto(saved);

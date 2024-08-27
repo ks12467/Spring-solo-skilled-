@@ -1,32 +1,30 @@
 package com.todo.todo.entity;
 
-import com.todo.todo.dto.request.CommentRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
-@Entity
 @Getter
 @Setter
+@Entity
 @NoArgsConstructor
-public class CommentEntity {
+public class UserTodoAssignment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long replyId;
+    private Long id;
 
-    @Column(nullable = false, length = 200)
-    private String contents;
-
-    @Column(nullable = false)
-    private LocalDateTime replyCreatedAt;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "todo_id")
     private TodoEntity todo;
 
-
+    public UserTodoAssignment(UserEntity user, TodoEntity todo){
+        this.user = user;
+        this.todo = todo;
+    }
 }

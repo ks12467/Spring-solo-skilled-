@@ -3,12 +3,12 @@ package com.todo.todo.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.todo.todo.dto.request.TodoRequestDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -42,12 +42,17 @@ public class TodoEntity {
     @JsonIgnore
     private List<CommentEntity> comments;
 
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserTodoAssignment> assignments = new ArrayList<>(); // N:M 관계를 위한 중간 엔티티
+
+
     public TodoEntity(TodoRequestDto todoRequestDto) {
         this.userName = todoRequestDto.getUserName();
         this.title = todoRequestDto.getTitle();
         this.contents = todoRequestDto.getContents();
         this.createdAt = LocalDateTime.now();
         this.updatedAt = this.createdAt;
+        this.user = user;
 
     }
 
