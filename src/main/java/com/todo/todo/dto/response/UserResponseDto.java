@@ -1,7 +1,13 @@
 package com.todo.todo.dto.response;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
+
+@Getter
+@Setter
 public class UserResponseDto {
     private Long id;
     private String name;
@@ -17,23 +23,4 @@ public class UserResponseDto {
         this.updatedAt = updatedAt;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
 }

@@ -12,7 +12,6 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "User")
 public class UserEntity {
 
     @Id
@@ -28,7 +27,7 @@ public class UserEntity {
     @Column(nullable = false)
     private LocalDateTime updateDate;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<TodoEntity> todos;
 
     public UserEntity(UserRequestDto userRequestDto) {

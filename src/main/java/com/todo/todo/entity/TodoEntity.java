@@ -8,18 +8,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "todo")
 @NoArgsConstructor
 public class TodoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "todo_id")
-    private Long id;
+    private Long todoId;
     @Column(nullable = false,length = 20)
     private String userName;
     @Column(nullable = false,length = 50)
@@ -34,6 +34,9 @@ public class TodoEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    @OneToMany(mappedBy = "todo")
+    private List<CommentEntity> comments;
 
     public TodoEntity(TodoRequestDto todoRequestDto) {
         this.userName = todoRequestDto.getUserName();

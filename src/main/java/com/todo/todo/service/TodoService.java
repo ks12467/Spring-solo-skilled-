@@ -6,8 +6,7 @@ import com.todo.todo.entity.TodoEntity;
 import com.todo.todo.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,7 +32,7 @@ public class TodoService {
     public Long updateTodo(Long id, TodoRequestDto todoRequestDto) {
         Optional<TodoEntity> optionalTodo = todoRepository.findById(id);
 
-        if(optionalTodo != null){
+        if(optionalTodo.isPresent()){
             TodoEntity todo = optionalTodo.get();
             todo.update(todoRequestDto);
             todo.setUpdatedAt(LocalDateTime.now());
@@ -44,8 +43,7 @@ public class TodoService {
         }
     }
 
-    public List<TodoEntity> findByUserId(Long id) {
-        return todoRepository.findByUserId(id);
+    public List<TodoEntity> findByTodoId(Long id) {
+        return todoRepository.findByTodoId(id);
     }
-
 }
