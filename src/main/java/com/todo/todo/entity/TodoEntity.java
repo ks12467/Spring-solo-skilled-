@@ -29,6 +29,8 @@ public class TodoEntity {
     private String contents;
     @Column(nullable = false)
     private LocalDateTime createdAt;
+    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime updatedAt;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -45,13 +47,15 @@ public class TodoEntity {
         this.title = todoRequestDto.getTitle();
         this.contents = todoRequestDto.getContents();
         this.createdAt = LocalDateTime.now();
+        this.updatedAt = this.createdAt;
+
     }
 
     public void update(TodoRequestDto todoRequestDto) {
         this.userName = todoRequestDto.getUserName();
         this.title = todoRequestDto.getTitle();
         this.contents = todoRequestDto.getContents();
-        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
 }

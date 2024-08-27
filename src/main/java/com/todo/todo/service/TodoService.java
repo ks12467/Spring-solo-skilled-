@@ -28,7 +28,7 @@ public class TodoService {
     }
 
     public Page<TodoResponseDto> getTodoPages(int page, int size){
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updateAt"));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updatedAt"));
         Page<TodoEntity> todoPage = todoRepository.findAll(pageable);
         return todoPage.map(TodoResponseDto::new);
     }
