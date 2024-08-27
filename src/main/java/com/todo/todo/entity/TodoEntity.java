@@ -1,5 +1,6 @@
 package com.todo.todo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.todo.todo.dto.request.TodoRequestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,14 +29,15 @@ public class TodoEntity {
     private String contents;
     @Column(nullable = false)
     private LocalDateTime createdAt;
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private UserEntity user;
 
     @OneToMany(mappedBy = "todo")
+    @JsonIgnore
     private List<CommentEntity> comments;
 
     public TodoEntity(TodoRequestDto todoRequestDto) {
@@ -43,14 +45,13 @@ public class TodoEntity {
         this.title = todoRequestDto.getTitle();
         this.contents = todoRequestDto.getContents();
         this.createdAt = LocalDateTime.now();
-        this.updatedAt = createdAt;
     }
 
     public void update(TodoRequestDto todoRequestDto) {
         this.userName = todoRequestDto.getUserName();
         this.title = todoRequestDto.getTitle();
         this.contents = todoRequestDto.getContents();
-        this.updatedAt = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
     }
 
 }

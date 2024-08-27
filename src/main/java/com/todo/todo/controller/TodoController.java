@@ -6,6 +6,7 @@ import com.todo.todo.dto.response.TodoResponseDto;
 import com.todo.todo.entity.TodoEntity;
 import com.todo.todo.service.TodoService;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,5 +36,11 @@ public class TodoController {
     @GetMapping("/todo/{id}")
     public List<TodoEntity> findByTodoId(@PathVariable Long id) {
         return todoService.findByTodoId(id);
+    }
+
+    @GetMapping("/todo/page")
+    public Page<TodoResponseDto> getPageTodo(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size
+    ){
+        return todoService.getTodoPages(page,size);
     }
 }

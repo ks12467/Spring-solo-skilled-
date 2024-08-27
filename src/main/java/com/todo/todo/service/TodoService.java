@@ -5,6 +5,10 @@ import com.todo.todo.dto.response.TodoResponseDto;
 import com.todo.todo.entity.TodoEntity;
 import com.todo.todo.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -23,6 +27,13 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
+    public Page<TodoResponseDto> getTodoPages(int page, int size){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updateAt"));
+        Page<TodoEntity> todoPage = todoRepository.findAll(pageable);
+        return todoPage.map(TodoResponseDto::new);
+    }
+
+
     public TodoResponseDto createTodo(TodoRequestDto todoRequestDto){
         TodoEntity todo = new TodoEntity(todoRequestDto);
         TodoEntity saved = todoRepository.save(todo);
@@ -35,7 +46,7 @@ public class TodoService {
         if(optionalTodo.isPresent()){
             TodoEntity todo = optionalTodo.get();
             todo.update(todoRequestDto);
-            todo.setUpdatedAt(LocalDateTime.now());
+            todo.setCreatedAt(LocalDateTime.now());
             todoRepository.save(todo);
             return id;
         } else {

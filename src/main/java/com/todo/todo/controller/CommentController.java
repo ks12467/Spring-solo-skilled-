@@ -26,7 +26,7 @@ public class CommentController {
     }
 
     @GetMapping
-    public List<CommentResponseDto> getCommentByTodoId(@PathVariable Long todoId, @RequestBody CommentRequestDto commentRequestDto){
+    public List<CommentResponseDto> getCommentByTodoId(@PathVariable Long todoId){
         return commentService.getCommentByTodoId(todoId);
     }
 

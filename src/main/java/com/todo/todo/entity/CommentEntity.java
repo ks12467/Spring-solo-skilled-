@@ -1,5 +1,6 @@
 package com.todo.todo.entity;
 
+import com.todo.todo.dto.request.CommentRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,4 +28,6 @@ public class CommentEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "todo_id")
     private TodoEntity todo;
+
+
 }

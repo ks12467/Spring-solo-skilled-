@@ -14,12 +14,15 @@ public class TodoResponseDto {
     private String title;
     private String contents;
     private LocalDateTime createdAt;
+    private int commentCount;
 
 
     public TodoResponseDto(TodoEntity todoEntity) {
+        this.id = todoEntity.getTodoId();
         this.userName = todoEntity.getUserName();
         this.title = todoEntity.getTitle();
         this.contents = todoEntity.getContents();
         this.createdAt = todoEntity.getCreatedAt();
+        this.commentCount = todoEntity.getComments().size();
     }
 }

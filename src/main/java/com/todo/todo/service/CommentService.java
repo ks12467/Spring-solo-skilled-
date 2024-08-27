@@ -41,7 +41,7 @@ public class CommentService {
     }
 
     public List<CommentResponseDto> getCommentByTodoId(Long todoId) {
-        List<CommentEntity> comments = commentRepository.findByTodoId(todoId);
+        List<CommentEntity> comments = commentRepository.findByTodo_TodoId(todoId);
         return comments.stream().map(CommentResponseDto::new).collect(Collectors.toList());
     }
 
