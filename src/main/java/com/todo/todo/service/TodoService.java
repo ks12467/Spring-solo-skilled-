@@ -54,6 +54,16 @@ public class TodoService {
         }
     }
 
+
+    public void deleteTodo(Long id){
+        if(todoRepository.existsById(id)){
+            todoRepository.deleteById(id);
+        } else {
+            throw new NoSuchElementException("아이디가 일치하지 않아 일정 삭제가 불가능합니다.");
+        }
+    }
+
+
     public List<TodoEntity> findByTodoId(Long id) {
         return todoRepository.findByTodoId(id);
     }

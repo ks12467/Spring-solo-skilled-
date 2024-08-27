@@ -43,4 +43,9 @@ public class TodoController {
     ){
         return todoService.getTodoPages(page,size);
     }
+
+    @DeleteMapping("/todo/{id}")
+    public void deleteTodo(@PathVariable Long id){
+        todoService.deleteTodo(id);
+    }
 }

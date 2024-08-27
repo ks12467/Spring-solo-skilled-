@@ -38,7 +38,7 @@ public class TodoEntity {
     @JsonIgnore
     private UserEntity user;
 
-    @OneToMany(mappedBy = "todo")
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<CommentEntity> comments;
 
