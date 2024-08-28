@@ -42,11 +42,11 @@ public class TodoEntity {
     @JsonIgnore
     private List<CommentEntity> comments;
 
-    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<UserTodoAssignment> assignments = new ArrayList<>(); // N:M 관계를 위한 중간 엔티티
 
 
-    public TodoEntity(TodoRequestDto todoRequestDto) {
+    public TodoEntity(TodoRequestDto todoRequestDto, UserEntity user) {
         this.userName = todoRequestDto.getUserName();
         this.title = todoRequestDto.getTitle();
         this.contents = todoRequestDto.getContents();

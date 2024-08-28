@@ -31,19 +31,19 @@ public class UserService {
     public UserResponseDto createUser(UserRequestDto userRequestDto) {
         UserEntity user = new UserEntity(userRequestDto);
         UserEntity savedUser = userRepository.save(user);
-        return new UserResponseDto(savedUser.getId(), savedUser.getUserName(), savedUser.getEmail(), savedUser.getCreateDate(), savedUser.getUpdateDate());
+        return new UserResponseDto(savedUser);
     }
 
     public List<UserResponseDto> getAllUsers() {
         List<UserEntity> users = userRepository.findAll();
         return users.stream()
-                .map(user -> new UserResponseDto(user.getId(), user.getUserName(), user.getEmail(), user.getCreateDate(), user.getUpdateDate()))
+                .map(user -> new UserResponseDto(user))
                 .collect(Collectors.toList());
     }
 
     public UserResponseDto getUserById(Long id) {
         UserEntity user = userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("아이디를 찾을 수 없습니다"));
-        return new UserResponseDto(user.getId(), user.getUserName(), user.getEmail(), user.getCreateDate(), user.getUpdateDate());
+        return new UserResponseDto(user);
     }
 
     public void deleteUserById(Long id) {

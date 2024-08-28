@@ -39,12 +39,22 @@ public class TodoService {
     }
 
 
+
+
     public TodoResponseDto createTodo(TodoRequestDto todoRequestDto){
         UserEntity user = userRepository.findById(todoRequestDto.getUserId()).orElseThrow(() -> new NoSuchElementException("사용자를 찾을 수 없습니다."));
-        TodoEntity todo = new TodoEntity(todoRequestDto);
+        TodoEntity todo = new TodoEntity(todoRequestDto, user);
         TodoEntity saved = todoRepository.save(todo);
         return new TodoResponseDto(saved);
     }
+
+
+    public TodoResponseDto getTodoById(Long id) {
+        TodoEntity todo = todoRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("아이디를 찾을 수 없습니다 " + id));
+        return new TodoResponseDto(todo, true);  // 단건 조회 시 유저 정보 포함
+    }
+
 
     public Long updateTodo(Long id, TodoRequestDto todoRequestDto) {
         Optional<TodoEntity> optionalTodo = todoRepository.findById(id);

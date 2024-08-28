@@ -34,8 +34,8 @@ public class TodoController {
     }
 
     @GetMapping("/todo/{id}")
-    public List<TodoEntity> findByTodoId(@PathVariable Long id) {
-        return todoService.findByTodoId(id);
+    public TodoResponseDto getByTodoId(@PathVariable Long id) {
+        return todoService.getTodoById(id);
     }
 
     @GetMapping("/todo/page")
