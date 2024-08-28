@@ -41,9 +41,4 @@ public class UserController {
         userService.deleteUserById(id);
     }
 
-    @PostMapping("/{userId}/assign/{todoId}")
-    public void assignUserTodo(@PathVariable Long userId, @PathVariable Long todoId) {
-        userService.assignUserToTodo(userId, todoId);
-    }
-
 }
